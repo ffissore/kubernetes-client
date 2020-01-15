@@ -32,6 +32,10 @@ module.exports = {
       const args = config['cmd-args'].split(' ')
       const cmdEnv = config['cmd-env']
 
+      if (cmd === 'aws' && args.indexOf('--profile') === -1 && cmdEnv.AWS_PROFILE) {
+        args.unshift(...['--profile', cmdEnv.AWS_PROFILE])
+      }
+
       let output
 
       if (process.platform === 'win32') {
